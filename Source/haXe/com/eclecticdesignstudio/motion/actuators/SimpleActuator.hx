@@ -137,9 +137,10 @@ class SimpleActuator extends GenericActuator {
 	/**
 	 * @inheritDoc
 	 */
-	public override function onUpdate (handler:Void -> Dynamic):GenericActuator {
+	public override function onUpdate (handler:Dynamic, parameters:Array <Dynamic> = null):GenericActuator {
 		
 		_onUpdate = handler;
+		_onUpdateParams = parameters;
 		sendChange = true;
 		
 		return this;

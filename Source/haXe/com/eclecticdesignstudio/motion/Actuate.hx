@@ -544,5 +544,4 @@ public function new (progress:Float):Void {
 
 typedef ActuateInternal = {
 	private function unload (actuator:GenericActuator):Void;
-	
 }
