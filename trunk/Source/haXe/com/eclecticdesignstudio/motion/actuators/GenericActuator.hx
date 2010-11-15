@@ -23,8 +23,10 @@ class GenericActuator {
 	private var _autoVisible:Bool;
 	private var _delay:Float;
 	private var _ease:IEasing;
-	private var _onUpdate:Void -> Dynamic;
-	private var _onComplete:Void -> Dynamic;
+	private var _onUpdate:Dynamic -> Dynamic;
+	private var _onUpdateParams:Dynamic;
+	private var _onComplete:Dynamic;
+	private var _onCompleteParams:Array <Dynamic>;
 	private var _reflect:Bool;
 	private var _repeat:Int;
 	private var _reverse:Bool;
@@ -36,6 +38,7 @@ class GenericActuator {
 	public function new (target:Dynamic, duration:Float, properties:Dynamic) {
 		
 		_autoVisible = true;
+		_delay = 0;
 		_reflect = false;
 		_repeat = 0;
 		_reverse = false;
@@ -81,7 +84,7 @@ class GenericActuator {
 		
 		if (_onUpdate != null) {
 			
-			_onUpdate ();
+			Reflect.callMethod (_onUpdate, _onUpdate, _onUpdateParams);
 			
 		}
 		
@@ -90,9 +93,15 @@ class GenericActuator {
 	
 	private function complete (? sendEvent:Bool = true):Void {
 		
-		if (sendEvent && _onComplete != null) {
+		if (sendEvent) {
 			
-			_onComplete ();
+			change ();
+			
+			if (_onComplete != null) {
+				
+				Reflect.callMethod (_onComplete, _onComplete, _onCompleteParams);
+				
+			}
 			
 		}
 		
@@ -144,9 +153,10 @@ class GenericActuator {
 	 * @param	parameters		Parameters you would like to pass to the handler function when it is called
 	 * @return		The current actuator instance
 	 */
-	public function onUpdate (handler:Void -> Dynamic):GenericActuator {
+	public function onUpdate (handler:Dynamic, parameters:Array <Dynamic> = null):GenericActuator {
 		
 		_onUpdate = handler;
+		_onUpdateParams = parameters;
 		
 		return this;
 		
@@ -159,9 +169,10 @@ class GenericActuator {
 	 * @param	parameters		Parameters you would like to pass to the handler function when it is called
 	 * @return		The current actuator instance
 	 */
-	public function onComplete (handler:Void -> Dynamic):GenericActuator {
+	public function onComplete (handler:Dynamic, parameters:Array <Dynamic> = null):GenericActuator {
 		
 		_onComplete = handler;
+		_onCompleteParams = parameters;
 		
 		if (duration == 0) {
 			
