@@ -46,7 +46,7 @@ class BackEaseIn implements IEasing {
 	public var s:Float;
 	
 	
-	public function BackEaseIn (s:Float) {
+	public function new (s:Float) {
 		
 		this.s = s;
 		
@@ -76,7 +76,7 @@ class BackEaseInOut implements IEasing {
 	public var s:Float;
 	
 	
-	public function BackEaseInOut (s:Float) {
+	public function new (s:Float) {
 		
 		this.s = s;
 		
@@ -108,7 +108,7 @@ class BackEaseOut implements IEasing {
 	public var s:Float;
 	
 	
-	public function BackEaseOut (s:Float) {
+	public function new (s:Float) {
 		
 		this.s = s;
 		

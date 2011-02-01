@@ -42,6 +42,13 @@ class Sine {
 class SineEaseIn implements IEasing {
 	
 	
+	public function new () {
+		
+		
+		
+	}
+	
+	
 	public function calculate (k:Float):Float {
 		
 		return 1 - Math.cos(k * (Math.PI / 2));
@@ -62,6 +69,13 @@ class SineEaseIn implements IEasing {
 class SineEaseInOut implements IEasing {
 	
 	
+	public function new () {
+		
+		
+		
+	}
+	
+	
 	public function calculate (k:Float):Float {
 		
 		return - (Math.cos(Math.PI * k) - 1) / 2;
@@ -80,6 +94,13 @@ class SineEaseInOut implements IEasing {
 
 
 class SineEaseOut implements IEasing {
+	
+	
+	public function new () {
+		
+		
+		
+	}
 	
 	
 	public function calculate (k:Float):Float {

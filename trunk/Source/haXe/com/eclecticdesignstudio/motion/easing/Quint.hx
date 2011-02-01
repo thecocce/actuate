@@ -43,6 +43,13 @@ class Quint {
 class QuintEaseIn implements IEasing {
 	
 	
+	public function new () {
+		
+		
+		
+	}
+	
+	
 	public function calculate (k:Float):Float {
 		
 		return k * k * k * k * k;
@@ -61,6 +68,13 @@ class QuintEaseIn implements IEasing {
 
 
 class QuintEaseInOut implements IEasing {
+	
+	
+	public function new () {
+		
+		
+		
+	}
 	
 	
 	public function calculate (k:Float):Float {
@@ -85,6 +99,13 @@ class QuintEaseInOut implements IEasing {
 
 
 class QuintEaseOut implements IEasing {
+	
+	
+	public function new () {
+		
+		
+		
+	}
 	
 	
 	public function calculate (k:Float):Float {

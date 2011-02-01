@@ -43,6 +43,13 @@ class Cubic {
 class CubicEaseIn implements IEasing {
 	
 	
+	public function new () {
+		
+		
+		
+	}
+	
+	
 	public function calculate (k:Float):Float {
 		
 		return k * k * k;
@@ -63,6 +70,13 @@ class CubicEaseIn implements IEasing {
 class CubicEaseInOut implements IEasing {
 	
 	
+	public function new () {
+		
+		
+		
+	}
+	
+	
 	public function calculate (k:Float):Float {
 		
 		return ((k /= 1 / 2) < 1) ? 0.5 * k * k * k : 0.5 * ((k -= 2) * k * k + 2);
@@ -81,6 +95,13 @@ class CubicEaseInOut implements IEasing {
 
 
 class CubicEaseOut implements IEasing {
+	
+	
+	public function new () {
+		
+		
+		
+	}
 	
 	
 	public function calculate (k:Float):Float {
