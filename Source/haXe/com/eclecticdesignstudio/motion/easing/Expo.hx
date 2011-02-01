@@ -43,7 +43,7 @@ class Expo {
 class ExpoEaseIn implements IEasing {
 	
 	
-	public function new ():Void {
+	public function new () {
 		
 		
 		
@@ -70,7 +70,7 @@ class ExpoEaseIn implements IEasing {
 class ExpoEaseInOut implements IEasing {
 	
 	
-	public function new ():Void {
+	public function new () {
 		
 		
 		
@@ -111,7 +111,7 @@ class ExpoEaseInOut implements IEasing {
 class ExpoEaseOut implements IEasing {
 	
 	
-	public function new ():Void {
+	public function new () {
 		
 		
 		

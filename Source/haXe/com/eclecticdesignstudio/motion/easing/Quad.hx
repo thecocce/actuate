@@ -43,7 +43,7 @@ class Quad {
 class QuadEaseIn implements IEasing {
 	
 	
-	public function new ():Void {
+	public function new () {
 		
 		
 		
@@ -70,7 +70,7 @@ class QuadEaseIn implements IEasing {
 class QuadEaseInOut implements IEasing {
 	
 	
-	public function new ():Void {
+	public function new () {
 		
 		
 		
@@ -103,7 +103,7 @@ class QuadEaseInOut implements IEasing {
 class QuadEaseOut implements IEasing {
 	
 	
-	public function new ():Void {
+	public function new () {
 		
 		
 		

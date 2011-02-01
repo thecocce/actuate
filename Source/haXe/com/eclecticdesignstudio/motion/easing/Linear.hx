@@ -27,6 +27,13 @@ class Linear {
 class LinearEaseNone implements IEasing {
 	
 	
+	public function new () {
+		
+		
+		
+	}
+	
+	
 	public function calculate (k:Float):Float {
 		
 		return k;
