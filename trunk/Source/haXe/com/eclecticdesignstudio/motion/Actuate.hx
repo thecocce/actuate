@@ -57,7 +57,7 @@ class Actuate {
 		}
 		
 		var actuator:GenericActuator = Type.createInstance (actuateClass, [ target, 0, properties ] );
-		var internal:GenericActuator.MotionInternal = actuator;
+		var internal:MotionInternal = actuator;
 		
 		internal.apply ();
 		
@@ -124,7 +124,7 @@ class Actuate {
 		
 		for (actuator in library) {
 			
-			var actuatorInternal:GenericActuator.MotionInternal = actuator;
+			var actuatorInternal:MotionInternal = actuator;
 			
 			if (actuatorInternal.target == target) {
 				
@@ -143,7 +143,7 @@ class Actuate {
 			
 			for (i in 0...library.length) {
 				
-				var actuatorInternal:GenericActuator.MotionInternal = library[i];
+				var actuatorInternal:MotionInternal = library[i];
 				actuatorInternal.pause ();
 				
 			}
@@ -164,7 +164,7 @@ class Actuate {
 			
 			for (i in 0...library.length) {
 				
-				var actuatorInternal:GenericActuator.MotionInternal = library[i];
+				var actuatorInternal:MotionInternal = library[i];
 				actuatorInternal.stop (null, false, false);
 				
 			}
@@ -189,7 +189,7 @@ class Actuate {
 		
 		for (actuator in library) {
 			
-			var actuatorInternal:GenericActuator.MotionInternal = actuator;
+			var actuatorInternal:MotionInternal = actuator;
 			
 			if (actuatorInternal.target == target) {
 				
@@ -208,7 +208,7 @@ class Actuate {
 			
 			for (i in 0...library.length) {
 				
-				var actuatorInternal:GenericActuator.MotionInternal = library[i];
+				var actuatorInternal:MotionInternal = library[i];
 				actuatorInternal.resume ();
 				
 			}
@@ -253,7 +253,7 @@ class Actuate {
 			
 			for (actuator in library) {
 				
-				var actuatorInternal:GenericActuator.MotionInternal = actuator;
+				var actuatorInternal:MotionInternal = actuator;
 				
 				if (actuatorInternal.target == target) {
 					
@@ -333,14 +333,14 @@ class Actuate {
 				
 			#end
 				
-				var actuatorInternal:GenericActuator.MotionInternal = actuator;
+				var actuatorInternal:MotionInternal = actuator;
 				var library:Array <GenericActuator> = getLibrary (actuatorInternal.target);
 				
 				if (overwrite) {
 					
 					for (childActuator in library) {
 						
-						var childActuatorInternal:GenericActuator.MotionInternal = childActuator;
+						var childActuatorInternal:MotionInternal = childActuator;
 						
 						if (childActuatorInternal.target == target) {
 							
@@ -372,7 +372,7 @@ class Actuate {
 	
 	private static function unload (actuator:GenericActuator):Void {
 		
-		var internal:GenericActuator.MotionInternal = actuator;
+		var internal:MotionInternal = actuator;
 		var targetString:String = Std.string (internal.target);
 		
 		if (targetLibraries.exists (targetString)) {
