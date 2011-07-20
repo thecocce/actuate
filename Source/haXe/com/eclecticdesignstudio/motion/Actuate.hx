@@ -1,6 +1,6 @@
 ﻿/**
  * @author Joshua Granick
- * @version 1.23
+ * @version 1.24
  */
 
 
@@ -229,7 +229,7 @@ class Actuate {
 	 */
 	public static function stop (target:Dynamic, properties:Dynamic = null, complete:Bool = false, sendEvent:Bool = true):Void {
 		
-		if (target) {
+		if (target != null) {
 			
 			var actuator:GenericActuator;
 			var library:Array <GenericActuator> = getLibrary (target);
@@ -316,15 +316,10 @@ class Actuate {
 			
 			if (duration > 0) {
 				
-			#if cpp
-				
 				// Type.createInstance doesn't work right now for the properties object
-				
 				var actuator:GenericActuator = new SimpleActuator (target, duration, properties);
 				
-			#else
-				
-				var actuateClass:Class <GenericActuator> = customActuator;
+				/*var actuateClass:Class <GenericActuator> = customActuator;
 				
 				if (actuateClass == null) {
 					
@@ -332,14 +327,17 @@ class Actuate {
 					
 				}
 				
-				var actuator:GenericActuator = Type.createInstance (actuateClass, [ target, duration, properties ] );
-				
-			#end
-				
-				var actuatorInternal:MotionInternal = actuator;
-				var library:Array <GenericActuator> = getLibrary (actuatorInternal.target);
+				var actuator:GenericActuator = Type.createInstance (actuateClass, [ target, duration, properties ] );*/
 				
 				if (overwrite) {
+					
+					stop (target, properties);
+					
+				}
+				
+				var library:Array <GenericActuator> = getLibrary (target);
+				
+				/*if (overwrite) {
 					
 					for (childActuator in library) {
 						
@@ -347,15 +345,17 @@ class Actuate {
 						
 						if (childActuatorInternal.target == target) {
 							
-							childActuatorInternal.stop (actuatorInternal.properties, false, false);
+							childActuatorInternal.stop (properties, false, false);
 							
 						}
 						
 					}
 					
-				}
+				}*/
 				
 				library.push (actuator);
+				
+				var actuatorInternal:MotionInternal = actuator;
 				actuatorInternal.move ();
 				
 				return actuator;
