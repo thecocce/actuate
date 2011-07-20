@@ -1,6 +1,6 @@
 ﻿/**
  * @author Joshua Granick
- * @version 1.22
+ * @version 1.23
  */
 
 
@@ -8,7 +8,6 @@ package com.eclecticdesignstudio.motion;
 
 
 import com.eclecticdesignstudio.motion.actuators.GenericActuator;
-import flash.text.TextField;
 //import com.eclecticdesignstudio.motion.actuators.MethodActuator;
 //import com.eclecticdesignstudio.motion.actuators.MotionInternal;
 //import com.eclecticdesignstudio.motion.actuators.MotionPathActuator;
@@ -40,23 +39,26 @@ class Actuate {
 		
 		stop (target, properties);
 		
-		var actuateClass:Class <GenericActuator> = customActuator;
-		
-		if (actuateClass == null) {
+		#if cpp
 			
-			actuateClass = defaultActuator;
+			// Type.createInstance doesn't work right now for the properties object
 			
-		}
-		
-		var actuateClass:Class <GenericActuator> = customActuator;
-		
-		if (actuateClass == null) {
+			var actuator:GenericActuator = new SimpleActuator (target, 0, properties);
 			
-			actuateClass = defaultActuator;
+		#else
 			
-		}
+			var actuateClass:Class <GenericActuator> = customActuator;
+			
+			if (actuateClass == null) {
+				
+				actuateClass = defaultActuator;
+				
+			}
+			
+			var actuator:GenericActuator = Type.createInstance (actuateClass, [ target, 0, properties ] );
+			
+		#end
 		
-		var actuator:GenericActuator = Type.createInstance (actuateClass, [ target, 0, properties ] );
 		var internal:MotionInternal = actuator;
 		
 		internal.apply ();
@@ -223,8 +225,9 @@ class Actuate {
 	 * @param	target		The target object which will have its tweens stopped
 	 * @param  properties		A string, array or object which contains the properties you wish to stop, like "alpha", [ "x", "y" ] or { alpha: null }. Passing no value removes all tweens for the object (Optional)
 	 * @param	complete		If tweens should apply their final target values before stopping. Default is false (Optional) 
+	 * @param	sendEvent	If a complete() event should be dispatched for the specified target. Default is true (Optional)
 	 */
-	public static function stop (target:Dynamic, properties:Dynamic = null, complete:Bool = false):Void {
+	public static function stop (target:Dynamic, properties:Dynamic = null, complete:Bool = false, sendEvent:Bool = true):Void {
 		
 		if (target) {
 			
@@ -257,7 +260,7 @@ class Actuate {
 				
 				if (actuatorInternal.target == target) {
 					
-					actuatorInternal.stop (properties, complete, true);
+					actuatorInternal.stop (properties, complete, sendEvent);
 					
 				}
 				
