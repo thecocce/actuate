@@ -331,7 +331,7 @@ class Actuate {
 				
 				if (overwrite) {
 					
-					stop (target, properties);
+					stop (target, properties, false, false);
 					
 				}
 				
