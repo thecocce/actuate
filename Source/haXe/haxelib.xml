@@ -3,5 +3,5 @@
     <tag v="flash"/>
     <tag v="cpp"/>
     <description>Actuate is a fast, flexible tween library with a jQuery-like syntax. It out-performs TweenLite, and is easy to extend if you need more features.</description>
-    <version name="1.23">Fixed apply() for CPP targets, and made it possible to silence the complete event when stopping tweens</version>
+    <version name="1.25">Overwriting a previous tween will not fire the complete event (how it was in < 1.23)</version>
 </project>
