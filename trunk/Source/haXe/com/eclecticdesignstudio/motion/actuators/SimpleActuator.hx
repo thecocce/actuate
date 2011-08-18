@@ -191,7 +191,7 @@ class SimpleActuator extends GenericActuator {
 				
 			}
 			
-			if (!properties) {
+			if (properties == null) {
 				
 				active = false;
 				
