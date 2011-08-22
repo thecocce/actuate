@@ -24,7 +24,7 @@ class Actuate {
 	
 	public static var defaultActuator:Class <GenericActuator> = SimpleActuator;
 	public static var defaultEase:IEasing = Expo.easeOut;
-	private static var targetLibraries:Hash <Array <GenericActuator>> = new Hash <Array <GenericActuator>> ();
+	private static var targetLibraries:ObjectHash <Array <GenericActuator>> = new ObjectHash <Array <GenericActuator>> ();
 	
 	
 	/**
@@ -82,15 +82,13 @@ class Actuate {
 	
 	private static function getLibrary (target:Dynamic):Array <GenericActuator> {
 		
-		var targetString:String = Std.string (target);
-		
-		if (!targetLibraries.exists (targetString)) {
+		if (!targetLibraries.exists (target)) {
 			
-			targetLibraries.set (targetString, new Array <GenericActuator> ());
+			targetLibraries.set (target, new Array <GenericActuator> ());
 			
 		}
 		
-		return targetLibraries.get (targetString);
+		return targetLibraries.get (target);
 		
 	}
 	
@@ -168,7 +166,7 @@ class Actuate {
 			
 		}
 		
-		targetLibraries = new Hash <Array <GenericActuator>> ();
+		targetLibraries = new ObjectHash <Array <GenericActuator>> ();
 		
 	}
 	
@@ -413,7 +411,7 @@ import flash.filters.BitmapFilter;
 import flash.geom.Matrix;
 
 
-class EffectsOptions {
+private class EffectsOptions {
 
 
 private var duration:Float;
@@ -448,7 +446,7 @@ public function new (target:DisplayObject, duration:Float, overwrite:Bool) {
 }
 
 
-class TransformOptions {
+private class TransformOptions {
 
 
 private var duration:Float;
@@ -517,17 +515,144 @@ public function new (target:Dynamic, duration:Float, overwrite:Bool) {
 }
 
 
-class TweenTimer {
+private class TweenTimer {
 
 
-public var progress:Float;
+	public var progress:Float;
 
 
-public function new (progress:Float):Void {
-	
-	this.progress = progress;
-	
+	public function new (progress:Float):Void {
+		
+		this.progress = progress;
+		
+	}
+
+
 }
 
 
+#if flash
+import flash.utils.Dictionary;
+#end
+
+
+private class ObjectHash <T> {
+	
+	
+	#if flash
+	
+	private var dictionary:Dictionary;
+	
+	#else
+	
+	private var hash:IntHash <T>;
+	
+	#end
+	
+	
+	public function new () {
+		
+		#if flash
+		
+		dictionary = new Dictionary (true);
+		
+		#else
+		
+		hash = new IntHash <T> ();
+		
+		#end
+		
+	}
+	
+	
+	public inline function exists (key:Dynamic):Bool {
+		
+		#if flash
+		
+		return untyped dictionary[key] != null;
+		
+		#else
+		
+		return hash.exists (getID (key));
+		
+		#end
+		
+	}
+	
+	
+	public inline function get (key:Dynamic):T {
+		
+		#if flash
+		
+		return untyped dictionary[key];
+		
+		#else
+		
+		return hash.get (getID (key));
+		
+		#end
+		
+	}
+	
+	
+	private inline function getID (key:Dynamic):Int {
+		
+		#if cpp
+		
+		return untyped __global__.__hxcpp_obj_id (key);
+		
+		#else
+		
+		return 0;
+		
+		#end
+		
+	}
+	
+	
+	public inline function iterator ():Iterator <T> {
+		
+		#if flash
+		
+		return untyped __keys__(dictionary);
+		
+		#else
+		
+		return hash.iterator ();
+		
+		#end
+		
+	}
+	
+	
+	public inline function remove (key:Dynamic):Void {
+		
+		#if flash
+		
+		untyped dictionary[key] = null;
+		
+		#else
+		
+		hash.remove (getID (key));
+		
+		#end
+		
+	}
+	
+	
+	public inline function set (key:Dynamic, value:T):Void {
+		
+		#if flash
+		
+		untyped dictionary[key] = value;
+		
+		#else
+		
+		hash.set (getID (key), value);
+		
+		#end
+		
+	}
+	
+	
 }
