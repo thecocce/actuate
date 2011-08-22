@@ -122,11 +122,7 @@ class Actuate {
 		
 		for (actuator in library) {
 			
-			if (actuator.target == target) {
-				
-				actuator.pause ();
-				
-			}
+			actuator.pause ();
 			
 		}
 		
@@ -184,11 +180,7 @@ class Actuate {
 		
 		for (actuator in library) {
 			
-			if (actuator.target == target) {
-				
-				actuator.resume ();
-				
-			}
+			actuator.resume ();
 			
 		}
 		
@@ -246,11 +238,7 @@ class Actuate {
 			
 			for (actuator in library) {
 				
-				if (actuator.target == target) {
-					
-					actuator.stop (properties, complete, sendEvent);
-					
-				}
+				actuator.stop (properties, complete, sendEvent);
 				
 			}
 			
@@ -362,15 +350,15 @@ class Actuate {
 	
 	public static function unload (actuator:GenericActuator):Void {
 		
-		var targetString:String = Std.string (actuator.target);
+		var target = actuator.target;
 		
-		if (targetLibraries.exists (targetString)) {
+		if (targetLibraries.exists (target)) {
 			
-			targetLibraries.get (targetString).remove (actuator);
+			targetLibraries.get (target).remove (actuator);
 			
-			if (targetLibraries.get (targetString).length == 0) {
+			if (targetLibraries.get (target).length == 0) {
 				
-				targetLibraries.remove (targetString);
+				targetLibraries.remove (target);
 				
 			}
 			
