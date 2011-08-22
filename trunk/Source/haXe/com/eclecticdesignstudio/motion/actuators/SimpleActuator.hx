@@ -1,6 +1,7 @@
 ﻿package com.eclecticdesignstudio.motion.actuators;
 
 
+import com.eclecticdesignstudio.motion.actuators.GenericActuator;
 import flash.display.DisplayObject;
 import flash.display.Shape;
 import flash.display.Sprite;
@@ -62,7 +63,7 @@ class SimpleActuator extends GenericActuator {
 	/**
 	 * @inheritDoc
 	 */
-	public override function autoVisible (value:Bool = true):GenericActuator {
+	public override function autoVisible (value:Bool = true):IGenericActuator {
 		
 		_autoVisible = value;
 		
@@ -86,7 +87,7 @@ class SimpleActuator extends GenericActuator {
 	/**
 	 * @inheritDoc
 	 */
-	public override function delay (duration:Float):GenericActuator {
+	public override function delay (duration:Float):IGenericActuator {
 		
 		_delay = duration;
 		timeOffset = startTime + duration;
@@ -115,7 +116,7 @@ class SimpleActuator extends GenericActuator {
 	}
 	
 	
-	private override function move ():Void {
+	public override function move ():Void {
 		
 		toggleVisible = (Reflect.hasField (properties, "alpha") && Std.is (target, DisplayObject));
 		
@@ -137,7 +138,7 @@ class SimpleActuator extends GenericActuator {
 	/**
 	 * @inheritDoc
 	 */
-	public override function onUpdate (handler:Dynamic, parameters:Array <Dynamic> = null):GenericActuator {
+	public override function onUpdate (handler:Dynamic, parameters:Array <Dynamic> = null):IGenericActuator {
 		
 		_onUpdate = handler;
 		_onUpdateParams = parameters;
@@ -148,7 +149,7 @@ class SimpleActuator extends GenericActuator {
 	}
 	
 	
-	private override function pause ():Void {
+	public override function pause ():Void {
 		
 		paused = true;
 		pauseTime = Lib.getTimer ();
@@ -156,7 +157,7 @@ class SimpleActuator extends GenericActuator {
 	}
 	
 	
-	private override function resume ():Void {
+	public override function resume ():Void {
 		
 		if (paused) {
 			
@@ -168,7 +169,7 @@ class SimpleActuator extends GenericActuator {
 	}
 	
 	
-	private override function stop (properties:Dynamic, complete:Bool, sendEvent:Bool):Void {
+	public override function stop (properties:Dynamic, complete:Bool, sendEvent:Bool):Void {
 		
 		if (active) {
 			

@@ -35,7 +35,7 @@ class Actuate {
 	 * @param	customActuator		A custom actuator to use instead of the default (Optional)
 	 * @return		The current actuator instance, which can be used to apply properties like onComplete or onUpdate handlers
 	 */
-	public static function apply (target:Dynamic, properties:Dynamic, customActuator:Class <GenericActuator> = null):GenericActuator {
+	public static function apply (target:Dynamic, properties:Dynamic, customActuator:Class <GenericActuator> = null):IGenericActuator {
 		
 		stop (target, properties);
 		
@@ -59,9 +59,7 @@ class Actuate {
 			
 		#end
 		
-		var internal:MotionInternal = actuator;
-		
-		internal.apply ();
+		actuator.apply ();
 		
 		return actuator;
 		
@@ -126,11 +124,9 @@ class Actuate {
 		
 		for (actuator in library) {
 			
-			var actuatorInternal:MotionInternal = actuator;
-			
-			if (actuatorInternal.target == target) {
+			if (actuator.target == target) {
 				
-				actuatorInternal.pause ();
+				actuator.pause ();
 				
 			}
 			
@@ -145,8 +141,8 @@ class Actuate {
 			
 			for (i in 0...library.length) {
 				
-				var actuatorInternal:MotionInternal = library[i];
-				actuatorInternal.pause ();
+				var actuator:GenericActuator = library[i];
+				actuator.pause ();
 				
 			}
 			
@@ -164,10 +160,9 @@ class Actuate {
 		
 		for (library in targetLibraries) {
 			
-			for (i in 0...library.length) {
+			for (actuator in library) {
 				
-				var actuatorInternal:MotionInternal = library[i];
-				actuatorInternal.stop (null, false, false);
+				actuator.stop (null, false, false);
 				
 			}
 			
@@ -191,11 +186,9 @@ class Actuate {
 		
 		for (actuator in library) {
 			
-			var actuatorInternal:MotionInternal = actuator;
-			
-			if (actuatorInternal.target == target) {
+			if (actuator.target == target) {
 				
-				actuatorInternal.resume ();
+				actuator.resume ();
 				
 			}
 			
@@ -208,10 +201,9 @@ class Actuate {
 		
 		for (library in targetLibraries) {
 			
-			for (i in 0...library.length) {
+			for (actuator in library) {
 				
-				var actuatorInternal:MotionInternal = library[i];
-				actuatorInternal.resume ();
+				actuator.resume ();
 				
 			}
 			
@@ -256,11 +248,9 @@ class Actuate {
 			
 			for (actuator in library) {
 				
-				var actuatorInternal:MotionInternal = actuator;
-				
-				if (actuatorInternal.target == target) {
+				if (actuator.target == target) {
 					
-					actuatorInternal.stop (properties, complete, sendEvent);
+					actuator.stop (properties, complete, sendEvent);
 					
 				}
 				
@@ -278,7 +268,7 @@ class Actuate {
 	 * @param	customActuator		A custom actuator to use instead of the default (Optional)
 	 * @return		The current actuator instance, which can be used to apply properties like onComplete or to gain a reference to the target timer object
 	 */
-	public static function timer (duration:Float, customActuator:Class <GenericActuator> = null):GenericActuator {
+	public static function timer (duration:Float, customActuator:Class <GenericActuator> = null):IGenericActuator {
 		
 		return tween (new TweenTimer (0), duration, new TweenTimer (1), false, customActuator);
 		
@@ -310,7 +300,7 @@ class Actuate {
 	 * @param	customActuator		A custom actuator to use instead of the default (Optional)
 	 * @return		The current actuator instance, which can be used to apply properties like ease, delay, onComplete or onUpdate
 	 */ 
-	public static function tween (target:Dynamic, duration:Float, properties:Dynamic, overwrite:Bool = true, customActuator:Class <GenericActuator> = null):GenericActuator {
+	public static function tween (target:Dynamic, duration:Float, properties:Dynamic, overwrite:Bool = true, customActuator:Class <GenericActuator> = null):IGenericActuator {
 		
 		if (target != null) {
 			
@@ -355,8 +345,7 @@ class Actuate {
 				
 				library.push (actuator);
 				
-				var actuatorInternal:MotionInternal = actuator;
-				actuatorInternal.move ();
+				actuator.move ();
 				
 				return actuator;
 				
@@ -373,10 +362,9 @@ class Actuate {
 	}
 	
 	
-	private static function unload (actuator:GenericActuator):Void {
+	public static function unload (actuator:GenericActuator):Void {
 		
-		var internal:MotionInternal = actuator;
-		var targetString:String = Std.string (internal.target);
+		var targetString:String = Std.string (actuator.target);
 		
 		if (targetLibraries.exists (targetString)) {
 			
@@ -542,9 +530,4 @@ public function new (progress:Float):Void {
 }
 
 
-}
-
-
-typedef ActuateInternal = {
-	private function unload (actuator:GenericActuator):Void;
 }
