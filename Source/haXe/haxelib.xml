@@ -3,5 +3,5 @@
     <tag v="flash"/>
     <tag v="cpp"/>
     <description>Actuate is a fast, flexible tween library with a jQuery-like syntax. It out-performs TweenLite, and is easy to extend if you need more features.</description>
-    <version name="1.26">Small fix for calling Actuate.stop () without specifying properties</version>
+    <version name="1.28">Changed from Hash to a Flash/CPP compatible ObjectHash to speed object lookups</version>
 </project>
