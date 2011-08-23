@@ -63,7 +63,13 @@ class SimpleActuator extends GenericActuator {
 	/**
 	 * @inheritDoc
 	 */
-	public override function autoVisible (value:Bool = true):IGenericActuator {
+	public override function autoVisible (?value:Null<Bool>):IGenericActuator {
+		
+		if (value == null) {
+			
+			value = true;
+			
+		}
 		
 		_autoVisible = value;
 		
