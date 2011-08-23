@@ -12,7 +12,7 @@ import com.eclecticdesignstudio.motion.Actuate;
 import flash.events.Event;
 
 
-class GenericActuator {
+class GenericActuator implements IGenericActuator {
 	
 	
 	public var duration:Float;
@@ -71,7 +71,13 @@ class GenericActuator {
 	 * @param	value		Whether autoVisible should be enabled (Default is true)
 	 * @return		The current actuator instance
 	 */
-	public function autoVisible (value:Bool = true):IGenericActuator {
+	public function autoVisible (?value:Null<Bool>):IGenericActuator {
+		
+		if (value == null) {
+			
+			value = true;
+			
+		}
 		
 		_autoVisible = value;
 		
@@ -195,7 +201,13 @@ class GenericActuator {
 	 * @param	value		Whether reflect should be enabled (Default is true)
 	 * @return		The current actuator instance
 	 */
-	public function reflect (value:Bool = true):IGenericActuator {
+	public function reflect (?value:Null<Bool>):IGenericActuator {
+		
+		if (value == null) {
+			
+			value = true;
+			
+		}
 		
 		_reflect = true;
 		special = true;
@@ -210,7 +222,13 @@ class GenericActuator {
 	 * @param	times		The number of times you would like the tween to repeat, or -1 if you would like to repeat the tween indefinitely (Default is -1)
 	 * @return		The current actuator instance
 	 */
-	public function repeat (times:Int = -1):IGenericActuator {
+	public function repeat (?times:Null<Int>):IGenericActuator {
+		
+		if (times == null) {
+			
+			times = -1;
+			
+		}
 		
 		_repeat = times;
 		
@@ -231,7 +249,13 @@ class GenericActuator {
 	 * @param	value		Whether the tween should be reversed (Default is true)
 	 * @return		The current actuator instance
 	 */
-	public function reverse (value:Bool = true):IGenericActuator {
+	public function reverse (?value:Null<Bool>):IGenericActuator {
+		
+		if (value == null) {
+			
+			value = true;
+			
+		}
 		
 		_reverse = value;
 		special = true;
@@ -246,7 +270,13 @@ class GenericActuator {
 	 * @param	value		Whether smart rotation should be enabled (Default is true)
 	 * @return		The current actuator instance
 	 */
-	public function smartRotation (value:Bool = true):IGenericActuator {
+	public function smartRotation (?value:Null<Bool>):IGenericActuator {
+		
+		if (value == null) {
+			
+			value = true;
+			
+		}
 		
 		_smartRotation = value;
 		special = true;
@@ -261,7 +291,13 @@ class GenericActuator {
 	 * @param	value		Whether tween values should be rounded (Default is true)
 	 * @return		The current actuator instance
 	 */
-	public function snapping (value:Bool = true):IGenericActuator {
+	public function snapping (?value:Null<Bool>):IGenericActuator {
+		
+		if (value == null) {
+			
+			value = true;
+			
+		}
 		
 		_snapping = value;
 		special = true;
@@ -281,14 +317,14 @@ class GenericActuator {
 }
 
 
-typedef IGenericActuator = {
+interface IGenericActuator {
 	
 	/**
 	 * Flash performs faster when objects are set to visible = false rather than only alpha = 0. autoVisible toggles automatically based on alpha values
 	 * @param	value		Whether autoVisible should be enabled (Default is true)
 	 * @return		The current actuator instance
 	 */
-	public function autoVisible (?value:Bool):IGenericActuator;
+	public function autoVisible (?value:Null<Bool>):IGenericActuator;
 	
 	/**
 	 * Increases the delay before a tween is executed
@@ -325,34 +361,34 @@ typedef IGenericActuator = {
 	 * @param	value		Whether reflect should be enabled (Default is true)
 	 * @return		The current actuator instance
 	 */
-	public function reflect (?value:Bool):IGenericActuator;
+	public function reflect (?value:Null<Bool>):IGenericActuator;
 	
 	/**
 	 * Repeats the tween after it finishes
 	 * @param	times		The number of times you would like the tween to repeat, or -1 if you would like to repeat the tween indefinitely (Default is -1)
 	 * @return		The current actuator instance
 	 */
-	public function repeat (?times:Int):IGenericActuator;
+	public function repeat (?times:Null<Int>):IGenericActuator;
 	
 	/**
 	 * Sets if the tween should be handled in reverse
 	 * @param	value		Whether the tween should be reversed (Default is true)
 	 * @return		The current actuator instance
 	 */
-	public function reverse (?value:Bool):IGenericActuator;
+	public function reverse (?value:Null<Bool>):IGenericActuator;
 	
 	/**
 	 * Enabling smartRotation can prevent undesired results when tweening rotation values
 	 * @param	value		Whether smart rotation should be enabled (Default is true)
 	 * @return		The current actuator instance
 	 */
-	public function smartRotation (?value:Bool):IGenericActuator;
+	public function smartRotation (?value:Null<Bool>):IGenericActuator;
 	
 	/**
 	 * Snapping causes tween values to be rounded automatically
 	 * @param	value		Whether tween values should be rounded (Default is true)
 	 * @return		The current actuator instance
 	 */
-	public function snapping (?value:Bool):IGenericActuator;
+	public function snapping (?value:Null<Bool>):IGenericActuator;
 	
 }
