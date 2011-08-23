@@ -12,7 +12,7 @@ import com.eclecticdesignstudio.motion.Actuate;
 import flash.events.Event;
 
 
-class GenericActuator implements IGenericActuator {
+class GenericActuator {
 	
 	
 	public var duration:Float;
@@ -281,14 +281,14 @@ class GenericActuator implements IGenericActuator {
 }
 
 
-interface IGenericActuator {
+typedef IGenericActuator = {
 	
 	/**
 	 * Flash performs faster when objects are set to visible = false rather than only alpha = 0. autoVisible toggles automatically based on alpha values
 	 * @param	value		Whether autoVisible should be enabled (Default is true)
 	 * @return		The current actuator instance
 	 */
-	public function autoVisible (value:Bool = null):IGenericActuator;
+	public function autoVisible (?value:Bool):IGenericActuator;
 	
 	/**
 	 * Increases the delay before a tween is executed
@@ -325,34 +325,34 @@ interface IGenericActuator {
 	 * @param	value		Whether reflect should be enabled (Default is true)
 	 * @return		The current actuator instance
 	 */
-	public function reflect (value:Bool = true):IGenericActuator;
+	public function reflect (?value:Bool):IGenericActuator;
 	
 	/**
 	 * Repeats the tween after it finishes
 	 * @param	times		The number of times you would like the tween to repeat, or -1 if you would like to repeat the tween indefinitely (Default is -1)
 	 * @return		The current actuator instance
 	 */
-	public function repeat (times:Int = -1):IGenericActuator;
+	public function repeat (?times:Int):IGenericActuator;
 	
 	/**
 	 * Sets if the tween should be handled in reverse
 	 * @param	value		Whether the tween should be reversed (Default is true)
 	 * @return		The current actuator instance
 	 */
-	public function reverse (value:Bool = true):IGenericActuator;
+	public function reverse (?value:Bool):IGenericActuator;
 	
 	/**
 	 * Enabling smartRotation can prevent undesired results when tweening rotation values
 	 * @param	value		Whether smart rotation should be enabled (Default is true)
 	 * @return		The current actuator instance
 	 */
-	public function smartRotation (value:Bool = true):IGenericActuator;
+	public function smartRotation (?value:Bool):IGenericActuator;
 	
 	/**
 	 * Snapping causes tween values to be rounded automatically
 	 * @param	value		Whether tween values should be rounded (Default is true)
 	 * @return		The current actuator instance
 	 */
-	public function snapping (value:Bool = true):IGenericActuator;
+	public function snapping (?value:Bool):IGenericActuator;
 	
 }
