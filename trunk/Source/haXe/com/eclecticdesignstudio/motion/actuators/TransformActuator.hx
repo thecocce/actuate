@@ -4,10 +4,8 @@
 import com.eclecticdesignstudio.motion.Actuate;
 import flash.display.DisplayObject;
 import flash.display.Sprite;
-import flash.events.TimerEvent;
 import flash.geom.ColorTransform;
 import flash.media.SoundTransform;
-import flash.utils.Timer;
 
 
 /**
@@ -103,7 +101,15 @@ class TransformActuator extends SimpleActuator {
 			
 		} else {
 			
-			endColorTransform.color = color;
+			//endColorTransform.color = color;
+			
+			endColorTransform.redMultiplier = 0;
+			endColorTransform.greenMultiplier = 0;
+			endColorTransform.blueMultiplier = 0;
+			
+			endColorTransform.redOffset = ((color >> 16) & 0xFF);
+			endColorTransform.greenOffset = ((color >> 8) & 0xFF);
+			endColorTransform.blueOffset = (color & 0xFF);
 			
 		}
 		

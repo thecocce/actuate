@@ -1,6 +1,6 @@
 ﻿/**
  * @author Joshua Granick
- * @version 1.31
+ * @version 1.32
  */
 
 
@@ -605,7 +605,15 @@ private class ObjectHash <T> {
 		
 		#if flash
 		
-		return dictionary.iterator ();
+		var values:Array <T> = new Array <T> ();
+		
+		for (key in dictionary.iterator ()) {
+			
+			values.push (dictionary.get (key));
+			
+		}
+		
+		return values.iterator ();
 		
 		#else
 		
