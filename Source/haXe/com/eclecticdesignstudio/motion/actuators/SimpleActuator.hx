@@ -111,8 +111,7 @@ class SimpleActuator extends GenericActuator {
 		
 		for (i in Reflect.fields (properties)) {
 			
-			//start = Reflect.field (target, i);
-			start = Reflect_field (target, i);
+			start = Reflect.field (target, i);
 			details = new PropertyDetails (target, i, start, Reflect.field (properties, i) - start);
 			propertyDetails.push (details);
 			
@@ -250,8 +249,7 @@ class SimpleActuator extends GenericActuator {
 					
 					details = propertyDetails[i];
 					
-					//Reflect.setField (details.target, details.propertyName, details.start + (details.change * easing));
-					Reflect_setField (details.target, details.propertyName, details.start + (details.change * easing));
+					Reflect.setField (details.target, details.propertyName, details.start + (details.change * easing));
 					
 				}
 				
@@ -297,13 +295,11 @@ class SimpleActuator extends GenericActuator {
 					
 					if (!_snapping) {
 						
-						//Reflect.setField (details.target, details.propertyName, endValue);
-						Reflect_setField (details.target, details.propertyName, endValue);
+						Reflect.setField (details.target, details.propertyName, endValue);
 						
 					} else {
 						
-						//Reflect.setField (details.target, details.propertyName, Math.round (endValue));
-						Reflect_setField (details.target, details.propertyName, Math.round (endValue));
+						Reflect.setField (details.target, details.propertyName, Math.round (endValue));
 						
 					}
 					
