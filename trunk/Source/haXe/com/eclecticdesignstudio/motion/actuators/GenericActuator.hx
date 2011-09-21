@@ -59,7 +59,8 @@ class GenericActuator implements IGenericActuator {
 		
 		for (i in Reflect.fields (properties)) {
 			
-			Reflect.setField (target, i, Reflect.field (properties, i));
+			//Reflect.setField (target, i, Reflect.field (properties, i));
+			Reflect_setField (target, i, Reflect.field (properties, i));
 			
 		}
 		
@@ -310,6 +311,68 @@ class GenericActuator implements IGenericActuator {
 	public function stop (properties:Dynamic, complete:Bool, sendEvent:Bool):Void {
 		
 		
+		
+	}
+	
+	
+	
+	
+	// JS Fixes
+	
+	
+	
+	
+	// JS Fixes
+	
+	
+	private inline function Reflect_field (o:Dynamic, field:String):Dynamic {
+		
+		#if js
+		
+		var jeashMethodName = "jeashGet" + field.substr (0, 1).toUpperCase () + field.substr (1);
+		var jeashMethod = Reflect.field (o, jeashMethodName);
+		
+		if (jeashMethod == null) {
+			
+			return Reflect.field (o, field);
+			
+		} else {
+			
+			return untyped { o[jeashMethodName] (); }
+			
+		}
+		
+		#else
+		
+		return Reflect.field (o, field);
+		
+		#end
+		
+	}
+	
+	
+	private inline function Reflect_setField (o:Dynamic, field:String, value:Dynamic):Void {
+		
+		#if js
+		
+		var jeashMethodName = "jeashSet" + field.substr (0, 1).toUpperCase () + field.substr (1);
+		var jeashMethod = Reflect.field (o, jeashMethodName);
+		
+		if (jeashMethod == null) {
+			
+			Reflect.setField (o, field, value);
+			
+		} else {
+			
+			untyped { o[jeashMethodName] (value); }
+			
+		}
+		
+		#else
+		
+		Reflect.setField (o, field, value);
+		
+		#end
 		
 	}
 	
