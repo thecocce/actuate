@@ -1,6 +1,6 @@
 ﻿/**
  * @author Joshua Granick
- * @version 1.32
+ * @version 1.34
  */
 
 
@@ -297,8 +297,6 @@ class Actuate {
 	 */ 
 	public static function tween (target:Dynamic, duration:Float, properties:Dynamic, overwrite:Bool = true, customActuator:Class <GenericActuator> = null):IGenericActuator {
 		
-		//trace (target);
-		
 		if (target != null) {
 			
 			if (duration > 0) {
@@ -532,12 +530,6 @@ import flash.utils.TypedDictionary;
 private class ObjectHash <T> {
 	
 	
-	#if js
-	
-	private static var nextObjectID:Int = 0;
-	
-	#end
-	
 	#if flash
 	
 	private var dictionary:TypedDictionary <Dynamic, T>;
@@ -547,6 +539,8 @@ private class ObjectHash <T> {
 	private var hash:IntHash <T>;
 	
 	#end
+	
+	private static var nextObjectID:Int = 0;
 	
 	
 	public function new () {
@@ -600,7 +594,7 @@ private class ObjectHash <T> {
 		
 		return untyped __global__.__hxcpp_obj_id (key);
 		
-		#elseif js
+		#else
 		
 		if (key.___id___ == null) {
 			
