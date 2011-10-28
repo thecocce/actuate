@@ -3,5 +3,5 @@
     <tag v="flash"/>
     <tag v="cpp"/>
     <description>Actuate is a fast, flexible tween library with a jQuery-like syntax. It out-performs TweenLite, and is easy to extend if you need more features.</description>
-    <version name="1.34">ObjectHash fix for Neko</version>
+    <version name="1.35">Added onRepeat. Especially good for timers, like Actuate.timer(1).repeat().onRepeat(trace,["ping"]);</version>
 </project>

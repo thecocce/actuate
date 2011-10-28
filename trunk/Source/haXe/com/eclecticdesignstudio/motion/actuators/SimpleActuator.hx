@@ -324,6 +324,12 @@ class SimpleActuator extends GenericActuator {
 					
 				} else {
 					
+					if (_onRepeat != null) {
+						
+						Reflect.callMethod (_onRepeat, _onRepeat, _onRepeatParams);
+						
+					}
+					
 					if (_reflect) {
 						
 						_reverse = !_reverse;

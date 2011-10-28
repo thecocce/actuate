@@ -23,10 +23,12 @@ class GenericActuator implements IGenericActuator {
 	private var _autoVisible:Bool;
 	private var _delay:Float;
 	private var _ease:IEasing;
-	private var _onUpdate:Dynamic -> Dynamic;
-	private var _onUpdateParams:Dynamic;
 	private var _onComplete:Dynamic;
 	private var _onCompleteParams:Array <Dynamic>;
+	private var _onRepeat:Dynamic;
+	private var _onRepeatParams:Array <Dynamic>;
+	private var _onUpdate:Dynamic;
+	private var _onUpdateParams:Array <Dynamic>;
 	private var _reflect:Bool;
 	private var _repeat:Int;
 	private var _reverse:Bool;
@@ -152,22 +154,6 @@ class GenericActuator implements IGenericActuator {
 	
 	
 	/**
-	 * Defines a function which will be called when the tween updates
-	 * @param	handler		The function you would like to be called
-	 * @param	parameters		Parameters you would like to pass to the handler function when it is called
-	 * @return		The current actuator instance
-	 */
-	public function onUpdate (handler:Dynamic, parameters:Array <Dynamic> = null):IGenericActuator {
-		
-		_onUpdate = handler;
-		_onUpdateParams = parameters;
-		
-		return this;
-		
-	}
-	
-	
-	/**
 	 * Defines a function which will be called when the tween finishes
 	 * @param	handler		The function you would like to be called
 	 * @param	parameters		Parameters you would like to pass to the handler function when it is called
@@ -183,6 +169,38 @@ class GenericActuator implements IGenericActuator {
 			complete ();
 			
 		}
+		
+		return this;
+		
+	}
+	
+	
+	/**
+	 * Defines a function which will be called when the tween repeats
+	 * @param	handler		The function you would like to be called
+	 * @param	parameters		Parameters you would like to pass to the handler function when it is called
+	 * @return		The current actuator instance
+	 */
+	public function onRepeat (handler:Dynamic, parameters:Array <Dynamic> = null):IGenericActuator {
+		
+		_onRepeat = handler;
+		_onRepeatParams = parameters;
+		
+		return this;
+		
+	}
+	
+	
+	/**
+	 * Defines a function which will be called when the tween updates
+	 * @param	handler		The function you would like to be called
+	 * @param	parameters		Parameters you would like to pass to the handler function when it is called
+	 * @return		The current actuator instance
+	 */
+	public function onUpdate (handler:Dynamic, parameters:Array <Dynamic> = null):IGenericActuator {
+		
+		_onUpdate = handler;
+		_onUpdateParams = parameters;
 		
 		return this;
 		
@@ -341,20 +359,28 @@ interface IGenericActuator {
 	public function ease (easing:IEasing):IGenericActuator;
 	
 	/**
-	 * Defines a function which will be called when the tween updates
-	 * @param	handler		The function you would like to be called
-	 * @param	parameters		Parameters you would like to pass to the handler function when it is called
-	 * @return		The current actuator instance
-	 */
-	public function onUpdate (handler:Dynamic, ?parameters:Array <Dynamic>):IGenericActuator;
-	
-	/**
 	 * Defines a function which will be called when the tween finishes
 	 * @param	handler		The function you would like to be called
 	 * @param	parameters		Parameters you would like to pass to the handler function when it is called
 	 * @return		The current actuator instance
 	 */
 	public function onComplete (handler:Dynamic, ?parameters:Array <Dynamic>):IGenericActuator;
+	
+	/**
+	 * Defines a function which will be called when the tween repeats
+	 * @param	handler		The function you would like to be called
+	 * @param	parameters		Parameters you would like to pass to the handler function when it is called
+	 * @return		The current actuator instance
+	 */
+	public function onRepeat (handler:Dynamic, ?parameters:Array <Dynamic>):IGenericActuator;
+	
+	/**
+	 * Defines a function which will be called when the tween updates
+	 * @param	handler		The function you would like to be called
+	 * @param	parameters		Parameters you would like to pass to the handler function when it is called
+	 * @return		The current actuator instance
+	 */
+	public function onUpdate (handler:Dynamic, ?parameters:Array <Dynamic>):IGenericActuator;
 	
 	/**
 	 * Automatically changes the reverse value when the tween repeats. Repeat must be enabled for this to have any effect
