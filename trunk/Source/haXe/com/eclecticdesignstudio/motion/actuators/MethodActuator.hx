@@ -8,24 +8,32 @@
 class MethodActuator extends SimpleActuator {
 	
 	
+	private var currentParameters:Array <Dynamic>;
 	private var tweenProperties:Dynamic;
 	
 	
 	public function new (target:Dynamic, duration:Float, properties:Dynamic) {
 		
+		currentParameters = new Array <Dynamic> ();
 		tweenProperties = { };
 		
 		super (target, duration, properties);
 		
-		if (!properties.start) {
+		if (!Reflect.hasField (properties, "start")) {
 			
-			properties.start = new Array <Dynamic> ();
+			this.properties.start = new Array <Dynamic> ();
 			
 		}
 		
-		if (!properties.end) {
+		if (!Reflect.hasField (properties, "end")) {
 			
-			properties.end = properties.start;
+			this.properties.end = this.properties.start;
+			
+		}
+		
+		for (i in 0...this.properties.start.length) {
+			
+			currentParameters.push (null);
 			
 		}
 		
@@ -35,6 +43,21 @@ class MethodActuator extends SimpleActuator {
 	public override function apply ():Void {
 		
 		Reflect.callMethod (null, target, properties.end);
+		
+	}
+	
+	
+	private override function complete (sendEvent:Bool = true):Void {
+		
+		for (i in 0...properties.start.length) {
+			
+			currentParameters[i] = Reflect.field (tweenProperties, "param" + i);
+			
+		}
+		
+		Reflect.callMethod (null, target, currentParameters);
+		
+		super.complete (sendEvent);
 		
 	}
 	
@@ -71,15 +94,17 @@ class MethodActuator extends SimpleActuator {
 		
 		super.update (currentTime);
 		
-		var parameters:Array <Dynamic> = new Array <Dynamic> ();
-		
-		for (i in 0...properties.start.length) {
+		if (active) {
 			
-			parameters.push (Reflect.field (tweenProperties, "param" + i));
+			for (i in 0...properties.start.length) {
+				
+				currentParameters[i] = Reflect.field (tweenProperties, "param" + i);
+				
+			}
+			
+			Reflect.callMethod (null, target, currentParameters);
 			
 		}
-		
-		Reflect.callMethod (null, target, parameters);
 		
 	}
 	
