@@ -99,7 +99,7 @@ class GenericActuator implements IGenericActuator {
 	}
 	
 	
-	private function complete (?sendEvent:Bool = true):Void {
+	private function complete (sendEvent:Bool = true):Void {
 		
 		if (sendEvent) {
 			
@@ -227,7 +227,7 @@ class GenericActuator implements IGenericActuator {
 			
 		}
 		
-		_reflect = true;
+		_reflect = value;
 		special = true;
 		
 		return this;
