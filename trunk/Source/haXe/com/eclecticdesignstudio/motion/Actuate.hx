@@ -1,6 +1,6 @@
 ﻿/**
  * @author Joshua Granick
- * @version 1.36
+ * @version 1.38
  */
 
 
@@ -134,11 +134,19 @@ class Actuate {
 	//public static function pause (... targets:Array):void {
 	public static function pause (target:Dynamic):Void {
 		
-		var library:Array <GenericActuator> = getLibrary (target);
-		
-		for (actuator in library) {
+		if (Std.is (target, GenericActuator)) {
 			
-			actuator.pause ();
+			cast (target, GenericActuator).pause ();
+			
+		} else {
+			
+			var library:Array <GenericActuator> = getLibrary (target);
+			
+			for (actuator in library) {
+				
+				actuator.pause ();
+				
+			}
 			
 		}
 		
@@ -186,11 +194,19 @@ class Actuate {
 	 */
 	public static function resume (target:Dynamic):Void {
 		
-		var library:Array <GenericActuator> = getLibrary (target);
-		
-		for (actuator in library) {
+		if (Std.is (target, GenericActuator)) {
 			
-			actuator.resume ();
+			cast (target, GenericActuator).resume ();
+			
+		} else {
+			
+			var library:Array <GenericActuator> = getLibrary (target);
+			
+			for (actuator in library) {
+				
+				actuator.resume ();
+				
+			}
 			
 		}
 		
@@ -214,7 +230,7 @@ class Actuate {
 	
 	/**
 	 * Stops all tweens for an individual object
-	 * @param	target		The target object which will have its tweens stopped
+	 * @param	target		The target object which will have its tweens stopped, or a generic actuator instance
 	 * @param  properties		A string, array or object which contains the properties you wish to stop, like "alpha", [ "x", "y" ] or { alpha: null }. Passing no value removes all tweens for the object (Optional)
 	 * @param	complete		If tweens should apply their final target values before stopping. Default is false (Optional) 
 	 * @param	sendEvent	If a complete() event should be dispatched for the specified target. Default is true (Optional)
@@ -223,31 +239,39 @@ class Actuate {
 		
 		if (target != null) {
 			
-			var library:Array <GenericActuator> = getLibrary (target);
-			
-			if (Std.is (properties, String)) {
+			if (Std.is (target, GenericActuator)) {
 				
-				var temp = {};
-				Reflect.setField (temp, properties, null);
-				properties = temp;
+				cast (target, GenericActuator).stop (null, complete, sendEvent);
 				
-			} else if (Std.is (properties, Array)) {
+			} else {
 				
-				var temp = {};
+				var library:Array <GenericActuator> = getLibrary (target);
 				
-				for (i in Reflect.fields (properties)) {
+				if (Std.is (properties, String)) {
 					
-					Reflect.setField (temp, i, null);
+					var temp = {};
+					Reflect.setField (temp, properties, null);
+					properties = temp;
+					
+				} else if (Std.is (properties, Array)) {
+					
+					var temp = {};
+					
+					for (i in Reflect.fields (properties)) {
+						
+						Reflect.setField (temp, i, null);
+						
+					}
+					
+					properties = temp;
 					
 				}
 				
-				properties = temp;
-				
-			}
-			
-			for (actuator in library) {
-				
-				actuator.stop (properties, complete, sendEvent);
+				for (actuator in library) {
+					
+					actuator.stop (properties, complete, sendEvent);
+					
+				}
 				
 			}
 			
