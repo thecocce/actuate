@@ -180,6 +180,21 @@ class SimpleActuator extends GenericActuator {
 		
 		if (active) {
 			
+			if (properties == null) {
+				
+				active = false;
+				
+				if (complete) {
+					
+					apply ();
+					
+				}
+				
+				this.complete (sendEvent);
+				return;
+				
+			}
+			
 			for (i in Reflect.fields (properties)) {
 				
 				if (Reflect.hasField (this.properties, i)) {
@@ -196,21 +211,6 @@ class SimpleActuator extends GenericActuator {
 					return;
 					
 				}
-				
-			}
-			
-			if (properties == null) {
-				
-				active = false;
-				
-				if (complete) {
-					
-					apply ();
-					
-				}
-				
-				this.complete (sendEvent);
-				return;
 				
 			}
 			
